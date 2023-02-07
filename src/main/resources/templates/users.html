@@ -10,6 +10,7 @@
     <div class="container">
         <div th:each="el : ${users}">
             <p th:text="${el.name}"></p>
+            <p th:text="${el.surname}"></p>
             <p th:text="${el.email}"></p>
             <p th:text="${el.dateOfBirth}"></p>
 

@@ -13,39 +13,34 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     private Long id;
     private String name;
+    private String surname;
     private String email;
+    private String city;
     private LocalDate dateOfBirth;
-
-//    private String password;
-//    public String getPassword() {
-//        return password;
-//    }
-//
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
-
-
     @Transient
     private Integer age;
+    private String password;
 
     public User() {
     }
-
-    public User(Long id, String name, String email, LocalDate dateOfBirth) {
+    public User(Long id, String name, String surname, String email, String city, LocalDate dateOfBirth, String password) {
         this.id = id;
         this.name = name;
+        this.surname = surname;
         this.email = email;
+        this.city = city;
         this.dateOfBirth = dateOfBirth;
-
+        this.password = password;
     }
-
-    public User(String name, String email, LocalDate dateOfBirth) {
+    public User(String name, String surname, String email, String city, LocalDate dateOfBirth, String password) {
         this.name = name;
+        this.surname = surname;
         this.email = email;
+        this.city = city;
         this.dateOfBirth = dateOfBirth;
-
+        this.password = password;
     }
+
 
     public Long getId() {
         return id;
@@ -62,6 +57,22 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
 
     public String getEmail() {
         return email;
@@ -86,15 +97,11 @@ public class User {
     public void setAge(Integer age) {
         this.age = age;
     }
+    public String getPassword() {
+        return password;
+    }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", age=" + age +
-                '}';
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

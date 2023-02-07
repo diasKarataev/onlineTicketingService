@@ -7,7 +7,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EventRepository
-        extends JpaRepository<Event, Long> {
-//    @Query("SELECT s FROM Student s WHERE s.email =?1")
-//    Optional<User> findUserByEmail(String email);
-}
+        extends JpaRepository<Event, Long> { }

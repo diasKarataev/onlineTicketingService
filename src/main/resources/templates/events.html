@@ -9,12 +9,13 @@
 <header th:insert="blocks/header :: header"/>
 <main>
     <div class="container">
-
         <div th:each="el : ${events}">
             <p th:text="'Name ' + ${el.title}"></p>
-            <p th:text="'Capacity ' + ${el.capacity}"></p>
             <a th:href="'/events/' + ${el.id}">Details</a>
-            <a th:href="'/events/' + ${el.id} + '/delete'">Delete</a>
+            <a th:href="'/events/' + ${el.id} + '/edit'">Edit</a>
+            <form th:action="'/events/' + ${el.id} + '/delete'" method="post">
+                <button type="submit">Delete</button>
+            </form>
             <br><br><br>
         </div>
         <a href="/events/new"><button type="button">Create event</button></a>

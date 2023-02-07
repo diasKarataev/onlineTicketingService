@@ -7,10 +7,14 @@
 </head>
 <header th:insert="blocks/header :: header"/>
 <main>
+    name, surname, email, city, dateOfBirth, password
     <form action="/users/new" method="post">
       <input type="text" name="name" placeholder="Name"><br>
-      <input type="text" name="email" placeholder="email"><br>
+        <input type="text" name="surname" placeholder="Surname"><br>
+      <input type="email" name="email" placeholder="email"><br>
+        <input type="text" name="city" placeholder="city"><br>
       <input type="date" name="dateOfBirth" placeholder="dateOfBirth"><br>
+        <input type="password" name="password" placeholder="password"><br>
       <button type="submit">SignUp</button>
     </form>
 </main>

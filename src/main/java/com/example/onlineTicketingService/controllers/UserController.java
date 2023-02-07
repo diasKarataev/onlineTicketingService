@@ -1,7 +1,6 @@
 package com.example.onlineTicketingService.controllers;
 
 import com.example.onlineTicketingService.models.User;
-//import com.example.onlineTicketingService.service.UserService;
 import com.example.onlineTicketingService.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,39 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-//@RestController
 
 @Controller
 @RequestMapping(path = "users")
 public class UserController {
-//    private final UserService userService;
-//    @Autowired
-//    public UserController(UserService userService){
-//        this.userService = userService;
-//    }
-//    @GetMapping("/list")
-//    public List<User> getUser(){
-//        return userService.getUsers();
-//    }
-//    @PostMapping
-//    public void addUser(@RequestBody User user){
-//        userService.addNewUser(user);
-//    }
-//    @PostMapping("/add")
-//    public String addUser(@RequestParam String name, @RequestParam String email, @RequestParam LocalDate dateOfBirth){
-//        userService.addNewUser(new User(name,email,dateOfBirth));
-//        return "users";
-//    }
-//    @DeleteMapping(path = "{userId}")
-//    public void deleteUser(@PathVariable("userId") Long userId){
-//        userService.deleteUser(userId);
-//    }
-//    @PutMapping(path = "{userId}")
-//    public void updateUser(@PathVariable("userId") Long userId, String name, String email){
-//        userService.updateUser(userId, name, email);
-//    }
     @Autowired
     private UserRepository userRepository;
     @GetMapping
@@ -56,10 +27,11 @@ public class UserController {
         return "register";
     }
     @PostMapping("/new")
-    public String userAdd(@RequestParam String name, @RequestParam String email, @RequestParam LocalDate dateOfBirth, Model model){
-        User user = new User(name,email,dateOfBirth);
+    public String userAdd(@RequestParam String name, @RequestParam String surname,@RequestParam String email,
+                          @RequestParam String city, @RequestParam LocalDate dateOfBirth,
+                          @RequestParam String password, Model model){
+        User user = new User(name, surname, email, city, dateOfBirth, password);
         userRepository.save(user);
-
         return "redirect:/users";
     }
     @GetMapping("/{id}")
