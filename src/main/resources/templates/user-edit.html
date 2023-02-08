@@ -7,13 +7,25 @@
 </head>
 <header th:insert="blocks/header :: header"/>
 <main>
+    <button onclick="history.back();">Back</button>
     <h1>Edit user</h1>
     <div th:each="el : ${user}">
         <form method="post">
+            <label>Username: </label>
+            <input type="text" th:value="${el.username}"name="username" placeholder="Username"><br>
+            <label>Name: </label>
             <input type="text" th:value="${el.name}"name="name" placeholder="Name"><br>
+            <label>Surname: </label>
+            <input type="text" th:value="${el.surname}"name="surname" placeholder="Surname"><br>
+            <label>Email: </label>
             <input type="text" th:value="${el.email}" name="email" placeholder="email"><br>
+            <label>City: </label>
+            <input type="text" th:value="${el.city}" name="city" placeholder="City"><br>
+            <label>Birthdate: </label>
             <input type="date" th:value="${el.dateOfBirth}" name="dateOfBirth" placeholder="dateOfBirth"><br>
-            <button type="submit">Refresh</button>
+            <label>Password: </label>
+            <input type="text" th:value="${el.password}" name="password" placeholder="Password"><br>
+            <button type="submit">Update profile</button>
         </form>
     </div>
 

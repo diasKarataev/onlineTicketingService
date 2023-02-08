@@ -8,6 +8,7 @@
 </head>
 <header th:insert="blocks/header :: header"/>
 <main>
+    <button onclick="history.back();">Back</button>
     <div class="container">
         <div th:each="el : ${events}">
             <p th:text="'Name ' + ${el.title}"></p>

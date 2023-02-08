@@ -6,7 +6,8 @@
 </head>
 <header th:insert="blocks/header :: header"/>
 <main>
-    <h1>Edit user</h1>
+    <button onclick="history.back();">Back</button>
+    <h1>Edit event</h1>
     <div th:each="el : ${event}">
         <form method="post">
             <input type="text" th:value="${el.title}"name="title" placeholder="Name"><br>

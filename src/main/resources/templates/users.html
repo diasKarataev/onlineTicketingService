@@ -7,15 +7,16 @@
 </head>
 <header th:insert="blocks/header :: header"/>
 <main>
+    <button onclick="history.back();">Back</button>
     <div class="container">
         <div th:each="el : ${users}">
-            <p th:text="${el.name}"></p>
-            <p th:text="${el.surname}"></p>
-            <p th:text="${el.email}"></p>
-            <p th:text="${el.dateOfBirth}"></p>
-
-            <a th:href="'/users/' + ${el.id}">Details</a>
-            <br><br><br>
+            <h3 th:text="${el.username} + '#' + ${el.id}"></h3>
+            <a  th:href="'/users/' + ${el.id}">Details</a><br>
+            <a  th:href="'/users/' + ${el.id} + '/edit'">Edit</a>
+            <form th:action="'/users/' + ${el.id} + '/delete'" method="post">
+                <button type="submit">Delete</button>
+            </form>
+            <br><br>
         </div>
         <a href="/users/new"><button type="button">Create user</button></a>
     </div>

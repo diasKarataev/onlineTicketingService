@@ -7,7 +7,7 @@
 </head>
 <header th:insert="blocks/header :: header"/>
 <main>
-
+  <button onclick="history.back();">Back</button>
   <div class="container">
     <div th:each="el : ${event}">
       <p th:text="'Event name: ' + ${el.title}"></p>
@@ -21,7 +21,6 @@
       </form>
       <br><br><br>
     </div>
-    <a href="/events/new"><button type="button">Create user</button></a>
   </div>
 </main>
 </html>

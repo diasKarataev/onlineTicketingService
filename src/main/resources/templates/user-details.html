@@ -8,15 +8,18 @@
 </head>
 <header th:insert="blocks/header :: header"/>
 <main>
-
+  <button onclick="history.back();">Back</button>
   <div class="container">
+
     <div th:each="el : ${user}">
+      <p th:text="'Username: ' + ${el.username}"></p>
       <p th:text="'Name: ' + ${el.name}"></p>
       <p th:text="'Surname: ' + ${el.surname}"></p>
+      <p th:text="'Age: ' + ${el.age}"></p>
       <p th:text="'Email: ' + ${el.email}"></p>
-      <p th:text="'Date: ' + ${el.dateOfBirth}"></p>
-      <p th:text="'Password: ' + ${el.password}"></p>
       <p th:text="'City: ' + ${el.city}"></p>
+      <p th:text="'Birthdate: ' + ${el.dateOfBirth}"></p>
+      <p th:text="'Password: ' + ${el.password}"></p>
       <a th:href="'/users/' + ${el.id} + '/edit'">Edit</a>
       <form th:action="'/users/' + ${el.id} + '/delete'" method="post">
         <button type="submit">Delete</button>

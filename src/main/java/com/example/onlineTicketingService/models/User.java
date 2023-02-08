@@ -2,29 +2,50 @@ package com.example.onlineTicketingService.models;
 
 import jakarta.persistence.*;
 
+
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Set;
 
 @Entity
-@Table(name="users")
+@Table(name="users",
+        uniqueConstraints = {
+            @UniqueConstraint(columnNames = "username"),
+            @UniqueConstraint(columnNames = "email")
+        })
 public class User {
     @Id
     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     private Long id;
+    private String username;
+    private String password;
+    private boolean active;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
+    private String email;
     private String name;
     private String surname;
-    private String email;
     private String city;
     private LocalDate dateOfBirth;
     @Transient
     private Integer age;
-    private String password;
+
+
 
     public User() {
     }
-    public User(Long id, String name, String surname, String email, String city, LocalDate dateOfBirth, String password) {
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(Long id, String username, String name, String surname, String email, String city, LocalDate dateOfBirth, String password) {
         this.id = id;
+        this.username = username;
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -32,7 +53,8 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.password = password;
     }
-    public User(String name, String surname, String email, String city, LocalDate dateOfBirth, String password) {
+    public User(String username, String name, String surname, String email, String city, LocalDate dateOfBirth, String password) {
+        this.username = username;
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -41,6 +63,29 @@ public class User {
         this.password = password;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public Long getId() {
         return id;
@@ -104,4 +149,20 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", city='" + city + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", age=" + age +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
+

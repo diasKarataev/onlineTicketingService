@@ -24,7 +24,7 @@ public class EventController {
     }
     @GetMapping("/new")
     public String eventRegistration(){
-        return "add-event";
+        return "event-add";
     }
     @PostMapping("/new")
     public String addEvent(@RequestParam String title, @RequestParam String description,
