@@ -1,6 +1,6 @@
 package com.example.onlineTicketingService.controllers;
 
-import com.example.onlineTicketingService.models.Role;
+//import com.example.onlineTicketingService.models.Role;
 import com.example.onlineTicketingService.models.User;
 import com.example.onlineTicketingService.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,32 +24,33 @@ public class UserController {
         model.addAttribute("users", users);
         return "users";
     }
-    @GetMapping("/new")
-    public String register(Model model){
-        return "users-add";
-    }
     @PostMapping("/new")
     public String userAddByAdmin(@RequestParam String username, @RequestParam String name, @RequestParam String surname,
-                          @RequestParam String email, @RequestParam String city, @RequestParam LocalDate dateOfBirth,
-                          @RequestParam String password, Model model){
+                                 @RequestParam String email, @RequestParam String city, @RequestParam LocalDate dateOfBirth,
+                                 @RequestParam String password, Model model){
         User user = new User(username, name, surname, email, city, dateOfBirth, password);
         userRepository.save(user);
         return "redirect:/users";
     }
-    @PostMapping("/registration")
-    public String userRegister(@RequestParam String username, @RequestParam String password, Model model){
-        User user = new User(username, password);
-//        User userFromDB = userRepository.findByUsername(user.getUsername());
-//        if(userFromDB != null){
-//            model.addAttribute("message", "User already exists!");
-//            return "login";
-//        }
-        user.setRoles(Collections.singleton(Role.USER));
-        user.setActive(true);
-        userRepository.save(user);
-//        model.addAttribute("message", "Successfully created!");
-        return "redirect:/login";
+    @GetMapping("/new")
+    public String register(Model model){
+        return "users-add";
     }
+
+//    @PostMapping("/registration")
+//    public String userRegister(@RequestParam String username, @RequestParam String password, Model model){
+//        User user = new User(username, password);
+////        User userFromDB = userRepository.findByUsername(user.getUsername());
+////        if(userFromDB != null){
+////            model.addAttribute("message", "User already exists!");
+////            return "login";
+////        }
+//        user.setRoles(Collections.singleton(Role.USER));
+//        user.setActive(true);
+//        userRepository.save(user);
+////        model.addAttribute("message", "Successfully created!");
+//        return "redirect:/login";
+//    }
     @GetMapping("/{id}")
     public String userDetails(@PathVariable(value = "id") long id, Model model){
         Optional<User> user = userRepository.findById(id);
