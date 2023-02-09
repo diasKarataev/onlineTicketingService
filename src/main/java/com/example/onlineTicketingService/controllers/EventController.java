@@ -1,7 +1,9 @@
 package com.example.onlineTicketingService.controllers;
 
 import com.example.onlineTicketingService.models.Event;
+import com.example.onlineTicketingService.models.Ticket;
 import com.example.onlineTicketingService.repository.EventRepository;
+import com.example.onlineTicketingService.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +16,11 @@ import java.util.Optional;
 @Controller
 @RequestMapping(path = "events")
 public class EventController {
+
     @Autowired
     public EventRepository eventRepository;
+    @Autowired
+    public TicketRepository ticketRepository;
     @GetMapping
     public String events(Model model){
         Iterable<Event> events = eventRepository.findAll();
@@ -31,7 +36,11 @@ public class EventController {
                            @RequestParam LocalDate eventDate, @RequestParam int price,
                            @RequestParam int capacity, Model model){
         Event event = new Event(title,description,eventDate, price, capacity);
+
         eventRepository.save(event);
+        Ticket ticket = new Ticket();
+        ticket.setEvent(event);
+        ticketRepository.save(ticket);
         return "redirect:/events";
     }
     @GetMapping("/{id}")

@@ -1,8 +1,9 @@
 package com.example.onlineTicketingService.models;
-
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Entity
 @Table(name="events")
@@ -16,6 +17,7 @@ public class Event {
     private LocalDate eventDate;
     private int price;
     private int capacity;
+//    private ArrayList<Ticket> tickets;
 
     public Long getId() {
         return id;
@@ -64,8 +66,13 @@ public class Event {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
-
     public Event() {
+//        for(int i=0; i < capacity; i++){
+//      Ticket ticket = new Ticket();
+//            ticket.setEvent(this);
+//            tickets.add(ticket);
+//            ticketRepository.save(ticket);
+//        }
     }
 
     public Event(String title, String description, LocalDate eventDate, int price, int capacity) {
