@@ -12,6 +12,9 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "event_id")
     private Event event;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User owner;
 
     public Ticket() {
 
@@ -27,5 +30,13 @@ public class Ticket {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }

@@ -8,13 +8,14 @@
 <header th:insert="blocks/header :: header"/>
 <main>
   <button onclick="history.back();">Back</button>
-  <form action="/events/new" method="post">
+  <form action="/events/new" method="post" enctype="multipart/form-data">
     <input type="text" name="title" placeholder="Title"><br>
     <input type="text" name="description" placeholder="Description"><br>
     <input type="date" name="eventDate" placeholder="Date"><br>
     <input type="number" name="price" placeholder="Price"><br>
     <input type="number" name="capacity" placeholder="Capacity"><br>
-    <button type="submit">SignUp</button>
+    <input type="file" name="fileImage" placeholder="Preview Image"><br>
+    <button type="submit">Add</button>
   </form>
 </main>
 </html>

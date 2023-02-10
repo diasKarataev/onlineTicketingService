@@ -1,6 +1,5 @@
 package com.example.onlineTicketingService.controllers;
 
-//import com.example.onlineTicketingService.models.Role;
 import com.example.onlineTicketingService.models.User;
 import com.example.onlineTicketingService.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Optional;
 
 @Controller
@@ -36,21 +34,6 @@ public class UserController {
     public String register(Model model){
         return "users-add";
     }
-
-//    @PostMapping("/registration")
-//    public String userRegister(@RequestParam String username, @RequestParam String password, Model model){
-//        User user = new User(username, password);
-////        User userFromDB = userRepository.findByUsername(user.getUsername());
-////        if(userFromDB != null){
-////            model.addAttribute("message", "User already exists!");
-////            return "login";
-////        }
-//        user.setRoles(Collections.singleton(Role.USER));
-//        user.setActive(true);
-//        userRepository.save(user);
-////        model.addAttribute("message", "Successfully created!");
-//        return "redirect:/login";
-//    }
     @GetMapping("/{id}")
     public String userDetails(@PathVariable(value = "id") long id, Model model){
         Optional<User> user = userRepository.findById(id);

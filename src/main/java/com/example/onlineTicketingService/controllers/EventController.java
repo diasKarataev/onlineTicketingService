@@ -1,6 +1,7 @@
 package com.example.onlineTicketingService.controllers;
 
 import com.example.onlineTicketingService.models.Event;
+import com.example.onlineTicketingService.models.Image;
 import com.example.onlineTicketingService.models.Ticket;
 import com.example.onlineTicketingService.repository.EventRepository;
 import com.example.onlineTicketingService.repository.TicketRepository;
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -21,6 +24,12 @@ public class EventController {
     public EventRepository eventRepository;
     @Autowired
     public TicketRepository ticketRepository;
+//    private final EventService eventService;
+//    @Autowired
+//    public EventController(EventService eventService) {
+//        this.eventService = eventService;
+//    }
+
     @GetMapping
     public String events(Model model){
         Iterable<Event> events = eventRepository.findAll();
@@ -34,14 +43,24 @@ public class EventController {
     @PostMapping("/new")
     public String addEvent(@RequestParam String title, @RequestParam String description,
                            @RequestParam LocalDate eventDate, @RequestParam int price,
-                           @RequestParam int capacity, Model model){
+                           @RequestParam int capacity, @RequestParam MultipartFile fileImage, Model model) throws IOException {
         Event event = new Event(title,description,eventDate, price, capacity);
-
+        Image image;
+        if(fileImage.getSize() != 0){
+            image = toImageEntity(fileImage);
+            event.setPreviewImage(image);
+        }
         eventRepository.save(event);
-        Ticket ticket = new Ticket();
-        ticket.setEvent(event);
-        ticketRepository.save(ticket);
         return "redirect:/events";
+    }
+    private Image toImageEntity(MultipartFile file) throws IOException {
+        Image image = new Image();
+        image.setName(file.getName());
+        image.setOriginalFileName(file.getOriginalFilename());
+        image.setContentType(file.getContentType());
+        image.setSize(file.getSize());
+        image.setBytes(file.getBytes());
+        return image;
     }
     @GetMapping("/{id}")
     public String eventDetails(@PathVariable(value = "id") long id, Model model){
@@ -78,6 +97,16 @@ public class EventController {
         event.setEventDate(eventDate);
         event.setPrice(price);
         event.setCapacity(capacity);
+        eventRepository.save(event);
+        return "redirect:/events";
+    }
+    @PostMapping("/{id}/buyTicket")
+    public String buyTicket(@PathVariable(value = "id") long id, Model model){
+        Ticket ticket = new Ticket();
+        Event event = eventRepository.findById(id).orElseThrow();
+        event.setCapacity(event.getCapacity()-1);
+        ticket.setEvent(event);
+        ticketRepository.save(ticket);
         eventRepository.save(event);
         return "redirect:/events";
     }

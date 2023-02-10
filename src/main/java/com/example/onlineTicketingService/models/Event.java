@@ -3,7 +3,9 @@ import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="events")
@@ -17,7 +19,13 @@ public class Event {
     private LocalDate eventDate;
     private int price;
     private int capacity;
-//    private ArrayList<Ticket> tickets;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Image previewImage;
+    private LocalDateTime dateOfCreated;
+    @PrePersist
+    private void init(){
+        dateOfCreated = LocalDateTime.now();
+    }
 
     public Long getId() {
         return id;
@@ -67,12 +75,6 @@ public class Event {
         this.capacity = capacity;
     }
     public Event() {
-//        for(int i=0; i < capacity; i++){
-//      Ticket ticket = new Ticket();
-//            ticket.setEvent(this);
-//            tickets.add(ticket);
-//            ticketRepository.save(ticket);
-//        }
     }
 
     public Event(String title, String description, LocalDate eventDate, int price, int capacity) {
@@ -102,5 +104,21 @@ public class Event {
                 ", price=" + price +
                 ", capacity=" + capacity +
                 '}';
+    }
+
+    public void setPreviewImage(Image previewImage) {
+        this.previewImage = previewImage;
+    }
+
+    public Image getPreviewImage() {
+        return previewImage;
+    }
+
+    public LocalDateTime getDateOfCreated() {
+        return dateOfCreated;
+    }
+
+    public Long getPreviewImageId() {
+        return previewImage.getId();
     }
 }

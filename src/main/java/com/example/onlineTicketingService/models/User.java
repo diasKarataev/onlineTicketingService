@@ -8,13 +8,9 @@ import java.time.Period;
 import java.util.Set;
 
 @Entity
-@Table(name="users"
-//        ,
-//        uniqueConstraints = {
-//            @UniqueConstraint(columnNames = "username"),
-//            @UniqueConstraint(columnNames = "email")
-//        }
-        )
+@Table(name="users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")})
 public class User {
     @Id
     @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
@@ -44,6 +40,10 @@ public class User {
 //        this.username = username;
 //        this.password = password;
 //    }
+
+    public User(String username) {
+        this.username = username;
+    }
 
     public User(Long id, String username, String name, String surname, String email, String city, LocalDate dateOfBirth, String password) {
         this.id = id;

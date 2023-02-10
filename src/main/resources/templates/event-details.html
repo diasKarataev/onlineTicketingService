@@ -10,15 +10,19 @@
   <button onclick="history.back();">Back</button>
   <div class="container">
     <div th:each="el : ${event}">
-      <p th:text="'Event name: ' + ${el.title}"></p>
-      <p th:text="'Description ' + ${el.description}"></p>
-      <p th:text="'Date ' + ${el.eventDate}"></p>
-      <p th:text="'Price ' + ${el.price}"></p>
-      <p th:text="'Capacity ' + ${el.capacity}"></p>
+      <h1 th:text="'Event name: ' + ${el.title}"></h1>
+      <p th:text="'Description: ' + ${el.description}"></p>
+      <p th:text="'Date: ' + ${el.eventDate}"></p>
+      <p th:text="'Ticket price: ' + ${el.price}"></p>
+      <h4 th:text="${el.capacity} + ' tickets left'"></h4>
+      <form th:action="'/events/' + ${el.id} + '/buyTicket'" method="post">
+        <button type="submit">Buy ticket</button>
+      </form>
       <a th:href="'/events/' + ${el.id} + '/edit'">Edit</a>
       <form th:action="'/events/' + ${el.id} + '/delete'" method="post">
         <button type="submit">Delete</button>
       </form>
+
       <br><br><br>
     </div>
   </div>
