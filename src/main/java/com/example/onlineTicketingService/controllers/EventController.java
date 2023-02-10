@@ -2,6 +2,7 @@ package com.example.onlineTicketingService.controllers;
 
 import com.example.onlineTicketingService.models.Event;
 import com.example.onlineTicketingService.models.Ticket;
+import com.example.onlineTicketingService.models.User;
 import com.example.onlineTicketingService.repository.EventRepository;
 import com.example.onlineTicketingService.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +37,7 @@ public class EventController {
                            @RequestParam LocalDate eventDate, @RequestParam int price,
                            @RequestParam int capacity, Model model){
         Event event = new Event(title,description,eventDate, price, capacity);
-
         eventRepository.save(event);
-        Ticket ticket = new Ticket();
-        ticket.setEvent(event);
-        ticketRepository.save(ticket);
         return "redirect:/events";
     }
     @GetMapping("/{id}")
@@ -78,6 +75,16 @@ public class EventController {
         event.setEventDate(eventDate);
         event.setPrice(price);
         event.setCapacity(capacity);
+        eventRepository.save(event);
+        return "redirect:/events";
+    }
+    @PostMapping("/{id}/buyTicket")
+    public String buyTicket(@PathVariable(value = "id") long id, Model model){
+        Ticket ticket = new Ticket();
+        Event event = eventRepository.findById(id).orElseThrow();
+        event.setCapacity(event.getCapacity()-1);
+        ticket.setEvent(event);
+        ticketRepository.save(ticket);
         eventRepository.save(event);
         return "redirect:/events";
     }

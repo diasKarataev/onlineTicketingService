@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class OnlineTicketingServiceApplication {
-	public static void main(String[] args) {
+	public static void main(String[] args){
 		SpringApplication.run(OnlineTicketingServiceApplication.class, args);
 	}
 }
