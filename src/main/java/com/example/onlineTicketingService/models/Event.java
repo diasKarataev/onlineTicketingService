@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="events")
@@ -19,8 +20,23 @@ public class Event {
     private LocalDate eventDate;
     private int price;
     private int capacity;
+
+    @OneToMany(mappedBy="event", cascade = CascadeType.ALL)
+    private Set<Ticket> tickets;
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private ArrayList<Ticket> eventTickets = new ArrayList<>();
+//    public ArrayList<Ticket> getEventTickets() {
+//        return eventTickets;
+//    }
+//    public void addTicket(Ticket ticket) {
+//        eventTickets.add(ticket);
+//    }
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Image previewImage;
+
+
+
     private LocalDateTime dateOfCreated;
     @PrePersist
     private void init(){

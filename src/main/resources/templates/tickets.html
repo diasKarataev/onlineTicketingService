@@ -10,9 +10,9 @@
   <button onclick="history.back();">Back</button>
   <div class="container">
     <div th:each="el : ${tickets}">
+      <h3 th:text="${el.event.title} + '#' + ${el.id}"></h3>
       <br><br>
     </div>
-    <a href="/users/new"><button type="button">Create user</button></a>
   </div>
 </main>
 </html>

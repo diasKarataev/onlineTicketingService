@@ -1,6 +1,8 @@
 package com.example.onlineTicketingService.models;
 import jakarta.persistence.*;
 
+import java.util.Optional;
+
 
 @Entity
 @Table(name = "tickets")
@@ -9,7 +11,7 @@ public class Ticket {
     @SequenceGenerator(name = "ticket_sequence", sequenceName = "ticket_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ticket_sequence")
     private Long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "event_id")
     private Event event;
     @OneToOne

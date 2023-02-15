@@ -15,7 +15,7 @@
       <p th:text="'Date: ' + ${el.eventDate}"></p>
       <p th:text="'Ticket price: ' + ${el.price}"></p>
       <h4 th:text="${el.capacity} + ' tickets left'"></h4>
-      <form th:action="'/events/' + ${el.id} + '/buyTicket'" method="post">
+      <form th:action="'/tickets/' + ${el.id} + '/buyTicket'" method="post">
         <button type="submit">Buy ticket</button>
       </form>
       <a th:href="'/events/' + ${el.id} + '/edit'">Edit</a>

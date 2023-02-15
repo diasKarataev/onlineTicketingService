@@ -8,17 +8,43 @@
 </head>
 <header th:insert="blocks/header :: header"/>
 <main>
+    <h1 th:text="${eventTitle}"/>
+    <form action="/events/find" method="post" enctype="multipart/form-data">
+        <select id="dropDownList" name="title">
+            <option th:each="option : ${events}" th:value="${option.title}" th:text="${option.title}"></option>
+        </select>
+        <button type="submit">Find</button>
+    </form>
     <button onclick="history.back();">Back</button>
     <div class="container">
-        <div th:each="el : ${events}">
-            <p th:text="'Name ' + ${el.title}"></p>
-            <a th:href="'/events/' + ${el.id}">Details</a>
-            <a th:href="'/events/' + ${el.id} + '/edit'">Edit</a>
-            <form th:action="'/events/' + ${el.id} + '/delete'" method="post">
-                <button type="submit">Delete</button>
-            </form>
-            <br><br><br>
-        </div>
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    <div class="col" th:each="el : ${events}">
+                        <div class="card shadow-sm">
+                            <div height="255"><img th:src="'/images/' + @{${el.getPreviewImageId()}}"  class="bd-placeholder-img card-img-top" width="100%" height="100%" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"></div>
+                            <div class="card-body">
+                                <p th:text="'Event: ' + ${el.title}"/>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <form th:action="'/events/' + ${el.id}" method="get">
+                                            <button class="btn btn-sm btn-outline-secondary">View</button>
+                                        </form>
+
+                                        <form th:action="'/events/' + ${el.id} + '/edit'" method="get">
+                                            <button class="btn btn-sm btn-outline-secondary">Edit</button>
+                                        </form>
+                                    </div>
+                                    <form th:action="'/events/' + ${el.id} + '/delete'" method="post">
+                                        <button class="btn btn-outline-danger" type="submit">Delete</button>
+                                    </form>
+                                    <!--                                <small class="text-muted">9 mins</small>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <p class="color: red">!Admin!</p>
         <a href="/events/new"><button type="button">Create event</button></a>
     </div>
