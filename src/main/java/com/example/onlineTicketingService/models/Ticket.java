@@ -1,7 +1,6 @@
 package com.example.onlineTicketingService.models;
-import jakarta.persistence.*;
 
-import java.util.Optional;
+import jakarta.persistence.*;
 
 
 @Entity

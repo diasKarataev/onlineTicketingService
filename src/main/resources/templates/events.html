@@ -8,6 +8,7 @@
 </head>
 <header th:insert="blocks/header :: header"/>
 <main>
+    <h1 th:text="${token}"/>
     <h1 th:text="${eventTitle}"/>
     <form action="/events/find" method="post" enctype="multipart/form-data">
         <select id="dropDownList" name="title">

@@ -8,9 +8,8 @@ import com.example.onlineTicketingService.repository.TicketRepository;
 import com.example.onlineTicketingService.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class TicketService {
@@ -20,6 +19,9 @@ public class TicketService {
     private TicketRepository ticketRepository;
     @Autowired
     private UserRepository userRepository;
+    public List<Ticket> getTickets() {
+        return ticketRepository.findAll();
+    }
     public void buyTicket(Long eventId) {
         Event event = eventRepository.findById(eventId).orElseThrow();
         event.setCapacity(event.getCapacity()-1);
@@ -31,9 +33,5 @@ public class TicketService {
         ticket.setEvent(event);
         ticketRepository.save(ticket);
         eventRepository.save(event);
-    }
-    public void getTickets(Model model) {
-        Iterable<Ticket> tickets = ticketRepository.findAll();
-        model.addAttribute("tickets", tickets);
     }
 }
