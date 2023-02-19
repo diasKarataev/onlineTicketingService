@@ -3,6 +3,7 @@ package com.example.onlineTicketingService.controllers;
 import com.example.onlineTicketingService.models.Event;
 import com.example.onlineTicketingService.services.EventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,14 +24,17 @@ public class EventController {
         return eventService.getById(id);
     }
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void addEvent(@RequestBody Event event) {
         eventService.addEvent(event);
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteEvent(@PathVariable(value = "id") long id){
         eventService.deleteEvent(id);
     }
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void updateEvent(@PathVariable(value = "id") long id, @RequestBody Event event){
         eventService.updateEvent(id, event);
     }

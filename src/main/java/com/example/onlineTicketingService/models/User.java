@@ -30,7 +30,7 @@ public class User implements UserDetails {
     private String surname;
     private String password;
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private ERole role;
     private String username;
     private String city;
     private LocalDate dateOfBirth;

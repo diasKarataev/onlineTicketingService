@@ -22,8 +22,9 @@ public class TicketService {
     public List<Ticket> getTickets() {
         return ticketRepository.findAll();
     }
-    public void buyTicket(Long eventId) {
+    public void buyTicket(Long eventId, Long userId) {
         Event event = eventRepository.findById(eventId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow();
         event.setCapacity(event.getCapacity()-1);
         Ticket ticket = new Ticket();
         if(userRepository.findById(1l) != null){
@@ -31,6 +32,7 @@ public class TicketService {
             ticket.setOwner(ticketOwner);
         }
         ticket.setEvent(event);
+        ticket.setOwner(user);
         ticketRepository.save(ticket);
         eventRepository.save(event);
     }
