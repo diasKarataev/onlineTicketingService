@@ -21,6 +21,9 @@ public class Event {
     private Long id;
     private String title;
     private String description;
+    @ManyToOne (cascade =CascadeType.ALL)
+    @JoinColumn(name = "place_id")
+    private Place eventPlace;
     private LocalDateTime eventDate;
     private int capacity;
     private int ticketPrice;
